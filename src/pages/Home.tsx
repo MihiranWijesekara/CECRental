@@ -5,30 +5,35 @@ import {
   ShieldCheck,
   Clock,
   TrendingUp,
-  Search,
-  Filter,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-import { CARS } from "../data";
-import { cn } from "../lib/utils";
+import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { fadeInUpOnMount, fadeInUpOnScroll } from "../lib/animations";
 
-const machine1 = new URL("../../img/machine1.jpeg", import.meta.url).href;
+const cab = new URL("../../img/cab.jpeg", import.meta.url).href;
 const tipper1 = new URL("../../img/tiper1.jpg", import.meta.url).href;
-const banner = new URL("../../img/banner.jpeg", import.meta.url).href;
-const banner1 = new URL("../../img/HeroBanner2.png", import.meta.url).href;
-const banner2 = new URL("../../img/HeroBanner3.png", import.meta.url).href;
+const banner = new URL("../../img/banner.png", import.meta.url).href;
 const banner3 = new URL("../../img/HeroBanner4.png", import.meta.url).href;
 const banner4 = new URL("../../img/HeroBanner5.png", import.meta.url).href;
 
+const VIPSectionBanner = new URL(
+  "../../img/VIPSectionBanner.png",
+  import.meta.url,
+).href;
+const GenaralSectionBanner = new URL(
+  "../../img/GenaralSectionBanner.png",
+  import.meta.url,
+).href;
+const machinerySectionBanner = new URL(
+  "../../img/machinerySectionBanner.png",
+  import.meta.url,
+).href;
+
 export default function Home() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
-  const [searchQuery, setSearchQuery] = useState("");
   const [showPhone, setShowPhone] = useState(false);
   const [heroBannerIndex, setHeroBannerIndex] = useState(0);
 
-  const heroBanners = [banner, banner1, banner2, banner3, banner4];
+  const heroBanners = [banner, banner3, banner4];
 
   useEffect(() => {
     const preloadedImages = heroBanners.map((src) => {
@@ -47,58 +52,9 @@ export default function Home() {
     };
   }, [heroBanners.length]);
 
-  const categories = ["All", "Machinery", "Transport"];
-
-  const getCategoryContent = (category: string) => {
-    switch (category) {
-      case "Machinery":
-        return {
-          title: (
-            <>
-              Our <span className="text-primary">Heavy Machinery</span>
-            </>
-          ),
-          description:
-            "High-performance Excavators, JCBs, Motor Graders, and Road Rollers for your construction projects.",
-        };
-      case "Transport":
-        return {
-          title: (
-            <>
-              Our <span className="text-primary">Transport Solutions</span>
-            </>
-          ),
-          description:
-            "Heavy-duty tippers and trucks designed for efficient material transport and logistics.",
-        };
-      default:
-        return {
-          title: (
-            <>
-              Our <span className="text-primary">Equipment Fleet</span>
-            </>
-          ),
-          description:
-            "Explore our full range of heavy machinery and transport solutions available for rent.",
-        };
-    }
-  };
-
-  const categoryContent = getCategoryContent(activeCategory);
-
-  const filteredCars = CARS.filter((car) => {
-    const matchesCategory =
-      activeCategory === "All" || car.category === activeCategory;
-    const matchesSearch = car.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center pt-40 pb-32 overflow-hidden ">
+      <section className="relative min-h-[90vh] flex items-center pt-40 pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src={heroBanners[heroBannerIndex]}
@@ -145,7 +101,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
       <section id="services" className="section-padding">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -177,7 +132,7 @@ export default function Home() {
                   },
                 ].map((item, i) => (
                   <motion.div
-                    key={i}
+                    key={item.title}
                     {...fadeInUpOnScroll}
                     transition={{
                       ...fadeInUpOnScroll.transition,
@@ -206,7 +161,7 @@ export default function Home() {
                   referrerPolicy="no-referrer"
                 />
                 <img
-                  src={machine1}
+                  src={cab}
                   className="w-full aspect-[4/3] object-cover rounded-3xl shadow-2xl"
                   alt="Service 2"
                   referrerPolicy="no-referrer"
@@ -223,48 +178,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Search & Filter
-      <motion.section
-        className="container mx-auto px-4 -mt-16 relative z-30"
-        {...fadeInUpOnScroll}
-      >
-        <div className="bg-white p-6 rounded-2xl shadow-2xl border border-gray-100">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="relative">
-              <Search
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                size={20}
-              />
-              <input
-                type="text"
-                placeholder="Search equipment..."
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 md:col-span-3">
-              <Filter size={20} className="text-gray-400 shrink-0" />
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={cn(
-                    "px-6 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap",
-                    activeCategory === cat
-                      ? "bg-primary text-white shadow-md"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200",
-                  )}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.section> */}
-
-      {/* Fleet Section */}
       <motion.section
         id="machinery"
         className="section-padding bg-gray-50"
@@ -273,74 +186,215 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl mb-4">
-              {categoryContent.title}
+              Our <span className="text-primary">Service Sections</span>
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              {categoryContent.description}
+              Explore VVIP, General, and Machinery services with one click.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <AnimatePresence mode="popLayout">
-              {filteredCars.map((car) => (
-                <motion.div
-                  layout
-                  key={car.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all border border-gray-100 flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="bg-primary/10 text-primary px-4 py-1 rounded-full text-xs font-bold uppercase">
-                        {car.category}
-                      </div>
+          <div className="space-y-10">
+            <motion.div
+              {...fadeInUpOnScroll}
+              className="overflow-hidden rounded-[3rem] shadow-2xl bg-[#0b0f19] text-white border border-white/10"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-5">
+                <div className="lg:col-span-3 relative min-h-[360px] md:min-h-[460px]">
+                  <img
+                    src={VIPSectionBanner}
+                    alt="VVIP Section"
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/25 to-transparent" />
+                  <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-[#d8b36a]/40 bg-[#d8b36a]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-[#f5d38a] w-fit mb-4 backdrop-blur-sm">
+                      Premium Travel
                     </div>
-                    <h3 className="text-2xl font-bold mb-2">{car.name}</h3>
-                    <p className="text-gray-600 text-sm mb-6 leading-relaxed">
-                      {car.description}
+                    <h3 className="text-3xl md:text-5xl font-black tracking-tight max-w-xl drop-shadow-lg">
+                      VVIP Section
+                    </h3>
+                    <p className="mt-4 max-w-xl text-white/80 leading-relaxed">
+                      Elite chauffeur-driven travel with premium comfort,
+                      privacy, and a polished executive look.
                     </p>
-                    <div className="space-y-2 mb-8">
-                      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                        Specifications
-                      </p>
-                      <p className="text-sm text-gray-600 flex items-center">
-                        <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
-                        Fuel: {car.fuel}
-                      </p>
-                      <p className="text-sm text-gray-600 flex items-center">
-                        <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
-                        Capacity: {car.capacity}
-                      </p>
-                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {car.features.map((f) => (
-                      <span
-                        key={f}
-                        className="text-[10px] bg-gray-50 text-gray-500 px-2 py-1 rounded-md uppercase font-bold border border-gray-100"
+                </div>
+
+                <div className="lg:col-span-2 p-8 md:p-12 bg-[radial-gradient(circle_at_top_right,rgba(216,179,106,0.14),transparent_30%),linear-gradient(180deg,#0f1522_0%,#0b0f19_100%)] flex flex-col justify-center">
+                  <p className="text-[#f5d38a] font-bold uppercase tracking-[0.25em] text-xs mb-4">
+                    Premium Travel
+                  </p>
+                  <h4 className="text-2xl md:text-3xl font-black mb-4">
+                    VVIP Section
+                  </h4>
+                  <p className="text-white/75 leading-relaxed mb-8 max-w-xl">
+                    Luxury transport for airport transfers, high-profile events,
+                    and executive travel.
+                  </p>
+                  <div className="grid grid-cols-1 gap-3 mb-8">
+                    {[
+                      "Airport transfers",
+                      "Executive rides",
+                      "Luxury comfort",
+                    ].map((point) => (
+                      <div
+                        key={point}
+                        className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-white/90"
                       >
-                        {f}
-                      </span>
+                        {point}
+                      </div>
                     ))}
                   </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+                  <div className="flex items-center gap-4 mb-8 text-sm text-white/70">
+                    <span className="rounded-full bg-white/10 px-4 py-2">
+                      Private
+                    </span>
+                    <span className="rounded-full bg-white/10 px-4 py-2">
+                      Executive
+                    </span>
+                    <span className="rounded-full bg-white/10 px-4 py-2">
+                      Luxury
+                    </span>
+                  </div>
+                  <div>
+                    <Link
+                      to="/transport"
+                      className="inline-flex items-center gap-2 rounded-full bg-[#d8b36a] px-8 py-3 font-bold tracking-wide text-[#0b0f19] shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#efc87a] hover:shadow-2xl"
+                    >
+                      Read More <ChevronRight size={18} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
-          {filteredCars.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-gray-400 text-lg">
-                No equipment found matching your criteria.
-              </p>
-            </div>
-          )}
+            <motion.div
+              {...fadeInUpOnScroll}
+              className="overflow-hidden rounded-[3rem] shadow-2xl border border-emerald-100 bg-[#f7faf5]"
+            >
+              <div className="relative h-[300px] md:h-[420px]">
+                <img
+                  src={GenaralSectionBanner}
+                  alt="General Section"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                <div className="absolute top-6 left-6 flex items-center gap-3">
+                  <span className="inline-flex items-center rounded-full bg-[#2f3b2a]/90 px-4 py-1 text-xs font-bold uppercase tracking-[0.22em] text-white shadow-lg">
+                    Daily Transport
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-white/85 px-4 py-1 text-xs font-bold uppercase tracking-[0.22em] text-secondary shadow-lg backdrop-blur-md">
+                    Clean Fleet
+                  </span>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-white">
+                  <h3 className="text-3xl md:text-5xl font-black tracking-tight drop-shadow-lg max-w-2xl">
+                    General Section
+                  </h3>
+                  <p className="text-white/85 mt-4 max-w-2xl leading-relaxed text-base md:text-lg">
+                    Reliable day-to-day transport vehicles for personal and
+                    business use.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-8 md:p-10 bg-[linear-gradient(180deg,#f7faf5_0%,#ffffff_100%)]">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  <div className="lg:col-span-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                      {[
+                        "Staff transport",
+                        "Family travel",
+                        "Business trips",
+                      ].map((point) => (
+                        <div
+                          key={point}
+                          className="rounded-2xl border border-emerald-100 bg-white px-4 py-4 text-sm font-semibold text-secondary shadow-sm"
+                        >
+                          {point}
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-gray-600 leading-relaxed max-w-2xl">
+                      Comfortable and dependable transport that works for daily
+                      travel, staff movement, and business use across Sri Lanka.
+                    </p>
+                  </div>
+
+                  <div className="lg:col-span-4 flex lg:justify-end">
+                    <Link
+                      to="/transport"
+                      className="inline-flex items-center gap-2 rounded-full border-2 border-[#2f3b2a] bg-[#2f3b2a] px-8 py-3 font-bold tracking-wide text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#23301f] hover:shadow-2xl"
+                    >
+                      Read More <ChevronRight size={18} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              {...fadeInUpOnScroll}
+              className="rounded-[2.75rem] overflow-hidden shadow-xl border border-gray-100 bg-secondary text-white"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-5">
+                <div className="lg:col-span-3 relative min-h-[340px] md:min-h-[420px]">
+                  <img
+                    src={machinerySectionBanner}
+                    alt="Machinery Section"
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/40 to-transparent" />
+                  <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
+                    <span className="inline-flex items-center rounded-full bg-primary/20 px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] w-fit mb-4">
+                      Site Power
+                    </span>
+                    <h3 className="text-3xl md:text-5xl font-black tracking-tight max-w-lg">
+                      Machinery Section
+                    </h3>
+                    <p className="text-white/80 mt-4 max-w-xl leading-relaxed">
+                      Heavy machinery for construction, excavation, and site
+                      operations.
+                    </p>
+                  </div>
+                  <div className="absolute top-8 right-8 w-28 h-28 rounded-full bg-primary/20 blur-3xl" />
+                </div>
+
+                <div className="lg:col-span-2 p-8 md:p-12 bg-[#111827] flex flex-col justify-center">
+                  <p className="text-primary font-bold uppercase tracking-[0.25em] text-xs mb-4">
+                    Site Power
+                  </p>
+                  <div className="space-y-4 mb-8">
+                    {["Excavation", "Road work", "Project support"].map(
+                      (point) => (
+                        <div
+                          key={point}
+                          className="flex items-center gap-3 rounded-2xl bg-white/5 px-4 py-4"
+                        >
+                          <span className="h-3 w-3 rounded-full bg-primary shrink-0" />
+                          <span className="font-medium text-white/90">
+                            {point}
+                          </span>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                  <Link
+                    to="/machinery"
+                    className="inline-flex items-center gap-2 self-start bg-primary text-white px-8 py-3 rounded-full font-bold tracking-wide shadow-lg hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    Read More <ChevronRight size={18} />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </motion.section>
 
-      {/* Testimonials Section */}
       <section className="section-padding bg-gray-50 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -375,15 +429,15 @@ export default function Home() {
               },
             ].map((t, i) => (
               <motion.div
-                key={i}
+                key={t.name}
                 {...fadeInUpOnScroll}
                 transition={{ ...fadeInUpOnScroll.transition, delay: i * 0.08 }}
                 whileHover={{ y: -10 }}
                 className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 flex-1"
               >
                 <div className="flex text-primary mb-4">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} size={16} fill="currentColor" />
+                  {[...Array(t.rating)].map((_, starIndex) => (
+                    <Star key={starIndex} size={16} fill="currentColor" />
                   ))}
                 </div>
                 <p className="text-gray-600 italic mb-6">"{t.text}"</p>
@@ -402,7 +456,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Banner */}
       <motion.section
         className="container mx-auto px-4 mb-24"
         {...fadeInUpOnScroll}

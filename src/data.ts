@@ -72,31 +72,4 @@ export const CARS: Car[] = [
     description:
       "High-capacity tipper truck for large-scale material transport and industrial use.",
   },
-  {
-    id: "7",
-    name: "Ranger Rover ",
-    category: "Transport",
-    year: 2020,
-    fuel: "Diesel",
-    capacity: "3.5 Cube",
-    pricePerDay: 180,
-    features: ["Large Capacity", "Heavy Load", "Industrial Grade"],
-    description:
-      "High-capacity tipper truck for large-scale material transport and industrial use.",
-  },
-
-  {
-    id: "8",
-    name: "Benz",
-    category: "Transport",
-    year: 2020,
-    fuel: "Diesel",
-    capacity: "3.5 Cube",
-    pricePerDay: 180,
-    features: ["Large Capacity", "Heavy Load", "Industrial Grade"],
-    description:
-      "High-capacity tipper truck for large-scale material transport and industrial use.",
-  },
-  // Benz , Ranger Rover , Lc 300
-  //Double cab , Van , 
 ];

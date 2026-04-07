@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  Truck,
   Phone,
   Mail,
   MapPin,
@@ -14,6 +13,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "../lib/utils";
+
+const CECLogo = new URL("../../img/CECLOGO.png", import.meta.url).href;
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -40,7 +41,8 @@ export default function Layout({ children }: LayoutProps) {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
-    { name: "Machinery", path: "/#machinery" },
+    { name: "Machinery", path: "/machinery" },
+    { name: "Transport", path: "/transport" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -90,8 +92,12 @@ export default function Layout({ children }: LayoutProps) {
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="bg-primary p-2 rounded-lg">
-              <Truck className="text-white" size={24} />
+            <div>
+              <img
+                src={CECLogo}
+                alt="CEC Logo"
+                className="w-20 h-11 object-contain"
+              />
             </div>
             <span className="text-2xl font-black tracking-tighter text-secondary">
               CEC<span className="text-primary">RENTAL</span>
@@ -172,8 +178,12 @@ export default function Layout({ children }: LayoutProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div>
               <div className="flex items-center space-x-2 mb-6">
-                <div className="bg-primary p-2 rounded-lg">
-                  <Truck className="text-white" size={20} />
+                <div>
+                  <img
+                    src={CECLogo}
+                    alt="CEC Logo"
+                    className="w-20 h-11 object-contain"
+                  />
                 </div>
                 <span className="text-xl font-black tracking-tighter">
                   CEC<span className="text-primary">RENTAL</span>
@@ -214,6 +224,14 @@ export default function Layout({ children }: LayoutProps) {
                     className="hover:text-primary transition-colors"
                   >
                     Our Fleet
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/transport"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Transport Services
                   </Link>
                 </li>
                 <li>
