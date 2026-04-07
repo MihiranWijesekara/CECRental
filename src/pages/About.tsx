@@ -157,7 +157,7 @@ export default function About() {
               The dedicated professionals behind CEC Rental.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
                 name: "Eng. Ashoka Randeni",
@@ -174,22 +174,17 @@ export default function About() {
                 role: "Group of Director",
                 img: sulekaImage,
               },
-              {
-                name: "Yasarath Randeni",
-                role: "Fleet Supervisor",
-                img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
-              },
             ].map((member, i) => (
               <motion.div
                 key={i}
                 {...fadeInUpOnScroll}
                 transition={{ ...fadeInUpOnScroll.transition, delay: i * 0.08 }}
-                className="group"
+                className="group text-center"
               >
-                <div className="relative overflow-hidden rounded-3xl mb-4">
+                <div className="relative overflow-hidden rounded-3xl mb-4 flex justify-center">
                   <img
                     src={member.img}
-                    className="w-full aspect-square object-cover transition-transform group-hover:scale-110"
+                    className="w-52 h-52 md:w-56 md:h-56 object-cover rounded-3xl transition-transform group-hover:scale-110"
                     alt={member.name}
                   />
                 </div>
