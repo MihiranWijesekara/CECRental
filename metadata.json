@@ -1,0 +1,7 @@
+{
+  "name": "CEC Rental - Premium Car Rental",
+  "description": "A professional car rental platform featuring VVIP collections, SUVs, and transport vehicles with real-time booking and premium service.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
