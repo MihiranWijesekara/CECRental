@@ -6,6 +6,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Transport from "./pages/Transport";
 import Machinery from "./pages/Machinery";
+import Plant from "./pages/plant";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/machinery" element={<Machinery />} />
+          <Route path="/plant" element={<Plant />} />
           <Route path="/transport" element={<Transport />} />
           <Route path="/contact" element={<Contact />} />
           {/* Fallback to Home */}

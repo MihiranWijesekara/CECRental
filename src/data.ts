@@ -13,7 +13,7 @@ export interface Car {
 export const CARS: Car[] = [
   {
     id: "1",
-    name: "JCB 3CX Backhoe Loader",
+    name: "JCB",
     category: "Machinery",
     year: 2021,
     fuel: "Diesel",

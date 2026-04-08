@@ -10,6 +10,7 @@ import {
   Linkedin,
   Menu,
   X,
+  ChevronDown,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "../lib/utils";
@@ -24,6 +25,12 @@ export default function Layout({ children }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showPhone, setShowPhone] = useState(false);
+  const [openDesktopDropdown, setOpenDesktopDropdown] = useState<string | null>(
+    null,
+  );
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(
+    null,
+  );
   const location = useLocation();
 
   useEffect(() => {
@@ -35,16 +42,29 @@ export default function Layout({ children }: LayoutProps) {
   // Close menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
+    setOpenDesktopDropdown(null);
+    setOpenMobileDropdown(null);
     window.scrollTo(0, 0);
   }, [location]);
 
   const navItems = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
-    { name: "Machinery", path: "/machinery" },
+    {
+      name: "Machinery",
+      path: "/machinery",
+      children: [
+        { name: "Machinery", path: "/machinery" },
+        { name: "Plants", path: "/plant" },
+      ],
+    },
     { name: "Transport", path: "/transport" },
     { name: "Contact", path: "/contact" },
   ];
+
+  const isActive = (path: string) => location.pathname === path;
+  const hasActiveChild = (children?: { name: string; path: string }[]) =>
+    Boolean(children?.some((child) => isActive(child.path)));
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -106,26 +126,84 @@ export default function Layout({ children }: LayoutProps) {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8 font-medium">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={cn(
-                  "hover:text-primary transition-colors relative group",
-                  location.pathname === item.path
-                    ? "text-primary"
-                    : "text-secondary",
-                )}
-              >
-                {item.name}
-                <span
+            {navItems.map((item) =>
+              item.children ? (
+                <div key={item.name} className="relative">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setOpenDesktopDropdown((prev) =>
+                        prev === item.name ? null : item.name,
+                      )
+                    }
+                    className={cn(
+                      "hover:text-primary transition-colors relative group flex items-center gap-1",
+                      hasActiveChild(item.children)
+                        ? "text-primary"
+                        : "text-secondary",
+                    )}
+                  >
+                    {item.name}
+                    <ChevronDown
+                      size={16}
+                      className={cn(
+                        "transition-transform",
+                        openDesktopDropdown === item.name ? "rotate-180" : "",
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        "absolute -bottom-1 left-0 h-0.5 bg-primary transition-all group-hover:w-full",
+                        hasActiveChild(item.children) ? "w-full" : "w-0",
+                      )}
+                    />
+                  </button>
+
+                  <AnimatePresence>
+                    {openDesktopDropdown === item.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 8 }}
+                        className="absolute top-full left-0 mt-3 min-w-[190px] rounded-xl border border-gray-100 bg-white shadow-xl p-2"
+                      >
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.name}
+                            to={child.path}
+                            className={cn(
+                              "block rounded-lg px-3 py-2 hover:bg-gray-50 transition-colors",
+                              isActive(child.path)
+                                ? "text-primary"
+                                : "text-secondary",
+                            )}
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.path}
                   className={cn(
-                    "absolute -bottom-1 left-0 h-0.5 bg-primary transition-all group-hover:w-full",
-                    location.pathname === item.path ? "w-full" : "w-0",
+                    "hover:text-primary transition-colors relative group",
+                    isActive(item.path) ? "text-primary" : "text-secondary",
                   )}
-                />
-              </Link>
-            ))}
+                >
+                  {item.name}
+                  <span
+                    className={cn(
+                      "absolute -bottom-1 left-0 h-0.5 bg-primary transition-all group-hover:w-full",
+                      isActive(item.path) ? "w-full" : "w-0",
+                    )}
+                  />
+                </Link>
+              ),
+            )}
             <button
               onClick={() => setShowPhone(!showPhone)}
               className="btn-primary min-w-[140px]"
@@ -153,11 +231,76 @@ export default function Layout({ children }: LayoutProps) {
               className="md:hidden bg-white border-t overflow-hidden"
             >
               <div className="flex flex-col p-4 space-y-4 font-medium">
-                {navItems.map((item) => (
-                  <Link key={item.name} to={item.path}>
-                    {item.name}
-                  </Link>
-                ))}
+                {navItems.map((item) =>
+                  item.children ? (
+                    <div key={item.name}>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOpenMobileDropdown((prev) =>
+                            prev === item.name ? null : item.name,
+                          )
+                        }
+                        className="w-full flex items-center justify-between text-left"
+                      >
+                        <span
+                          className={cn(
+                            hasActiveChild(item.children)
+                              ? "text-primary"
+                              : "text-secondary",
+                          )}
+                        >
+                          {item.name}
+                        </span>
+                        <ChevronDown
+                          size={16}
+                          className={cn(
+                            "transition-transform",
+                            openMobileDropdown === item.name
+                              ? "rotate-180"
+                              : "",
+                          )}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {openMobileDropdown === item.name && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="ml-4 mt-3 space-y-3 overflow-hidden"
+                          >
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.name}
+                                to={child.path}
+                                className={cn(
+                                  "block",
+                                  isActive(child.path)
+                                    ? "text-primary"
+                                    : "text-secondary",
+                                )}
+                              >
+                                {child.name}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      className={cn(
+                        isActive(item.path) ? "text-primary" : "text-secondary",
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  ),
+                )}
                 <button
                   onClick={() => setShowPhone(!showPhone)}
                   className="btn-primary w-full text-center"

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
-import { fadeInUpOnScroll } from "../lib/animations";
+import { fadeInUpOnMount, fadeInUpOnScroll } from "../lib/animations";
 
 const RangeRover = new URL("../../img/RangeRover.jpeg", import.meta.url).href;
 const Benz = new URL("../../img/Benzcrop.jpeg", import.meta.url).href;
@@ -9,6 +9,11 @@ const LC300 = new URL("../../img/LC300.jpg", import.meta.url).href;
 const DoubleCab = new URL("../../img/Double cab.jpeg", import.meta.url).href;
 const HondaVezel = new URL("../../img/HondaVezel.jpeg", import.meta.url).href;
 const nisan = new URL("../../img/nisan.png", import.meta.url).href;
+
+const TransportBanner = new URL(
+  "../../img/TransportvehicalBanner.png",
+  import.meta.url,
+).href;
 
 export default function Transport() {
   const vipVehicles = [
@@ -50,6 +55,39 @@ export default function Transport() {
   return (
     <>
       {/* VIP Section */}
+      <section className=" py-5 relative overflow-hidden rounded-3xl h-[300px] md:h-[360px] w-full">
+        <div className="absolute inset-0 opacity-550">
+          <img
+            src={TransportBanner}
+            className="w-full h-full object-cover"
+            alt="Transport Hero"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/65 to-secondary/35" />
+        <div className="absolute inset-0 bg-black/20" />
+
+        <div className="container mx-auto px-4 relative z-10 h-full flex items-center justify-center text-center py-10 md:py-12">
+          <div className="max-w-3xl">
+            <motion.h2
+              {...fadeInUpOnMount}
+              transition={{ ...fadeInUpOnMount.transition, delay: 0.08 }}
+              className="text-4xl md:text-6xl font-black text-white mb-5"
+            >
+              Our <span className="text-primary">Transport Vehicles</span>
+            </motion.h2>
+
+            <motion.p
+              {...fadeInUpOnMount}
+              transition={{ ...fadeInUpOnMount.transition, delay: 0.14 }}
+              className="text-white/90 text-base md:text-lg max-w-2xl mx-auto"
+            >
+              Explore our premium and general vehicle collection, designed for
+              executives and everyday transportation needs.
+            </motion.p>
+          </div>
+        </div>
+      </section>
       <section className="section-padding bg-gradient-to-b from-secondary/5 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
