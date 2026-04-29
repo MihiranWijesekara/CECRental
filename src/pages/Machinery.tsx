@@ -14,7 +14,7 @@ export default function Machinery() {
   );
 
   return (
-    <section className="py-5 bg-gray-50">
+    <section className="py-10 bg-gray-50">
       <section className="relative overflow-hidden rounded-3xl h-[300px] md:h-[360px] w-full">
         <div className="absolute inset-0 opacity-550">
           <img

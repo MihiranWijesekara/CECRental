@@ -128,7 +128,12 @@ export default function Layout({ children }: LayoutProps) {
           <div className="hidden md:flex items-center space-x-8 font-medium">
             {navItems.map((item) =>
               item.children ? (
-                <div key={item.name} className="relative">
+                <div
+                  key={item.name}
+                  className="relative"
+                  onMouseEnter={() => setOpenDesktopDropdown(item.name)}
+                  onMouseLeave={() => setOpenDesktopDropdown(null)}
+                >
                   <button
                     type="button"
                     onClick={() =>

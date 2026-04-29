@@ -12,32 +12,38 @@ const aboutUsbanner = new URL("../../img/aboutUsBanner.png", import.meta.url)
 
 export default function About() {
   return (
-    <div className="pt-20">
+    <div className="pt-10">
       {/* Hero Section */}
-      <section className="bg-secondary py-24 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
+      <section className="relative overflow-hidden rounded-3xl h-[300px] md:h-[360px] w-full">
+        <div className="absolute inset-0 opacity-550">
           <img
             src={aboutUsbanner}
             className="w-full h-full object-cover"
-            alt="About Hero"
+            alt="About Us Hero"
             referrerPolicy="no-referrer"
           />
         </div>
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <motion.h1
-            {...fadeInUpOnMount}
-            className="text-5xl md:text-7xl font-black text-white mb-6"
-          >
-            About <span className="text-primary">CEC Rental</span>
-          </motion.h1>
-          <motion.p
-            {...fadeInUpOnMount}
-            transition={{ ...fadeInUpOnMount.transition, delay: 0.12 }}
-            className="text-xl text-white/70 max-w-2xl mx-auto"
-          >
-            Your premier choice for heavy machinery and reliable transport
-            rentals in Sri Lanka since 2011.
-          </motion.p>
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/65 to-secondary/35" />
+        <div className="absolute inset-0 bg-black/20" />
+
+        <div className="container mx-auto px-4 relative z-10 h-full flex items-center justify-center text-center py-10 md:py-12">
+          <div className="max-w-3xl">
+            <motion.h2
+              {...fadeInUpOnMount}
+              transition={{ ...fadeInUpOnMount.transition, delay: 0.08 }}
+              className="text-4xl md:text-6xl font-black text-white mb-5"
+            >
+              About <span className="text-primary">CEC Rental</span>
+            </motion.h2>
+
+            <motion.p
+              {...fadeInUpOnMount}
+              transition={{ ...fadeInUpOnMount.transition, delay: 0.14 }}
+              className="text-white/90 text-base md:text-lg max-w-2xl mx-auto"
+            >
+              Your premier choice for heavy machinery and reliable transport
+            </motion.p>
+          </div>
         </div>
       </section>
 
@@ -91,8 +97,8 @@ export default function About() {
               <div className="absolute -bottom-6 -left-6 bg-primary p-8 rounded-2xl shadow-xl text-white">
                 <ShieldCheck size={40} />
                 <p className="mt-4 font-bold">
-                  Certified & <br />
-                  Insured
+                  32 years of <br />
+                  engineering excellency
                 </p>
               </div>
             </motion.div>
@@ -111,7 +117,7 @@ export default function About() {
               The principles that guide everything we do.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
             {[
               {
                 icon: <Users size={32} />,
@@ -151,23 +157,31 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl mb-4">
-              Meet Our <span className="text-primary">Team</span>
+              Our <span className="text-primary">Leadership</span>
             </h2>
-            <p className="text-gray-500">
-              The dedicated professionals behind CEC Rental.
-            </p>
+            <div className="max-w-4xl mx-auto">
+              <p className="text-gray-500 leading-relaxed">
+                Consulting Engineers & Contractors (Pvt) Ltd (CEC), now
+                rebranded as the CEC Group of Companies, is a trusted leader in
+                road construction and civil engineering in Sri Lanka, with over
+                30 years of experience delivering quality projects on time.
+              </p>
+              <a
+                href="https://www.cec.lk/"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md shadow-primary/20 transition-transform transition-colors hover:-translate-y-0.5 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                See more
+              </a>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2   max-w-2xl mx-auto">
             {[
               {
                 name: "Eng. Ashoka Randeni",
                 role: "Founder & Managing Director",
                 img: ashokaImage,
-              },
-              {
-                name: "Eng. Gamini Randeni",
-                role: "Founder & Managing Director",
-                img: gaminiImage,
               },
               {
                 name: "Suleka Jayawardena",
@@ -184,7 +198,7 @@ export default function About() {
                 <div className="relative overflow-hidden rounded-3xl mb-4 flex justify-center">
                   <img
                     src={member.img}
-                    className="w-52 h-52 md:w-56 md:h-56 object-cover rounded-3xl transition-transform group-hover:scale-110"
+                    className="w-60 h-60 md:w-56 md:h-56 object-cover rounded-3xl transition-transform group-hover:scale-110"
                     alt={member.name}
                   />
                 </div>

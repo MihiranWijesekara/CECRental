@@ -13,7 +13,6 @@ interface PlantItem {
   name: string;
   description: string;
   //   fuel: string;
-  capacity: string;
   features: string[];
   image: string;
 }
@@ -24,28 +23,26 @@ const plantItems: PlantItem[] = [
     category: "Asphalt Product",
     name: "Asphalt Mix Supply",
     description:
-      "Consistent asphalt products for road surfacing and maintenance with quality-controlled production.",
+      "Consistent asphalt products for road surfacing and maintenance with quality-controlled production. Available with transport and without transport.",
     // fuel: "N/A",
-    capacity: "Bulk Supply",
-    features: ["Hot Mix", "Road Base", "Paving Grade", "Timely Delivery"],
-    image: "/img/aspaltPlant.png",
+    features: [],
+    image: "/img/aspaltPlant1.png",
   },
   {
     id: 3,
     category: "Quarry Product",
     name: "Quarry Material Supply",
     description:
-      "High-quality aggregates and quarry products for concrete, sub-base, drainage, and civil projects.",
+      "High-quality aggregates and quarry products for concrete, sub-base, drainage, and civil projects. Available with transport and without transport.",
     // fuel: "N/A",
-    capacity: "Large Volume",
-    features: ["Metal", "Crusher Dust", "Aggregates", "GSB"],
-    image: "/img/QuarryPlant.png",
+    features: ["Quarry Dust", "Chips", "ABC", 'Metal (3/4", 1/2", 1/4")'],
+    image: "/img/QuarryPlant1.png",
   },
 ];
 
 export default function Plant() {
   return (
-    <section className="py-5 bg-gray-50">
+    <section className="py-10 bg-gray-50">
       <section className="relative overflow-hidden rounded-3xl h-[300px] md:h-[360px] w-full">
         <div className="absolute inset-0 opacity-550">
           <img
@@ -82,7 +79,7 @@ export default function Plant() {
       </section>
 
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-15 max-w-6xl mx-auto">
           <AnimatePresence mode="popLayout">
             {plantItems.map((item) => (
               <motion.div
@@ -113,15 +110,6 @@ export default function Plant() {
                     <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                       {item.description}
                     </p>
-                    <div className="space-y-2 mb-8">
-                      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                        Specifications
-                      </p>
-                      <p className="text-sm text-gray-600 flex items-center">
-                        <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
-                        Capacity: {item.capacity}
-                      </p>
-                    </div>
                   </div>
                   <div className="flex flex-wrap gap-2 mb-3">
                     {item.features.map((f) => (

@@ -24,9 +24,43 @@ export default function Contact() {
   };
 
   return (
-    <div className="pt-20">
+    <div className="pt-10">
       {/* Hero Section */}
-      <section className="bg-secondary py-24 relative overflow-hidden">
+
+      <section className="relative overflow-hidden rounded-3xl h-[300px] md:h-[360px] w-full">
+        <div className="absolute inset-0 opacity-550">
+          <img
+            src={contactUsBanner}
+            className="w-full h-full object-cover"
+            alt="Contact Us Hero"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/65 to-secondary/35" />
+        <div className="absolute inset-0 bg-black/20" />
+
+        <div className="container mx-auto px-4 relative z-10 h-full flex items-center justify-center text-center py-10 md:py-12">
+          <div className="max-w-3xl">
+            <motion.h2
+              {...fadeInUpOnMount}
+              transition={{ ...fadeInUpOnMount.transition, delay: 0.08 }}
+              className="text-4xl md:text-6xl font-black text-white mb-5"
+            >
+              Contact <span className="text-primary">Us</span>
+            </motion.h2>
+
+            <motion.p
+              {...fadeInUpOnMount}
+              transition={{ ...fadeInUpOnMount.transition, delay: 0.14 }}
+              className="text-white/90 text-base md:text-lg max-w-2xl mx-auto"
+            >
+              Have questions? We're here to help you find the perfect machinery
+            </motion.p>
+          </div>
+        </div>
+      </section>
+
+      {/* <section className="bg-secondary py-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img
             src={contactUsBanner}
@@ -51,7 +85,7 @@ export default function Contact() {
             for your project.
           </motion.p>
         </div>
-      </section>
+      </section> */}
 
       <section className="section-padding">
         <div className="container mx-auto px-4">

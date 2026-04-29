@@ -17,15 +17,15 @@ const banner3 = new URL("../../img/HeroBanner4.png", import.meta.url).href;
 const banner4 = new URL("../../img/HeroBanner5.png", import.meta.url).href;
 
 const VIPSectionBanner = new URL(
-  "../../img/VIPSectionBanner.png",
+  "../../img/VIPSectionBanner1.png",
   import.meta.url,
 ).href;
 const GenaralSectionBanner = new URL(
-  "../../img/GenaralSectionBanner.png",
+  "../../img/GenaralSectionBanner1.png",
   import.meta.url,
 ).href;
 const machinerySectionBanner = new URL(
-  "../../img/machinerySectionBanner.png",
+  "../../img/machinerySectionBanner1.png",
   import.meta.url,
 ).href;
 

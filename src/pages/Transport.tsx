@@ -11,7 +11,7 @@ const HondaVezel = new URL("../../img/HondaVezel.jpeg", import.meta.url).href;
 const nisan = new URL("../../img/nisan.png", import.meta.url).href;
 
 const TransportBanner = new URL(
-  "../../img/TransportvehicalBanner.png",
+  "../../img/TransportvehicalBanner1.png",
   import.meta.url,
 ).href;
 
