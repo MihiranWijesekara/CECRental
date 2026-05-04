@@ -13,7 +13,7 @@ import { fadeInUpOnMount, fadeInUpOnScroll } from "../lib/animations";
 const cab = new URL("../../img/cab.jpeg", import.meta.url).href;
 const tipper1 = new URL("../../img/tiper1.jpg", import.meta.url).href;
 const banner = new URL("../../img/banner.png", import.meta.url).href;
-const banner3 = new URL("../../img/HeroBanner4.png", import.meta.url).href;
+const banner3 = new URL("../../img/genaralTransportHeroSection.png", import.meta.url).href;
 const banner4 = new URL("../../img/HeroBanner5.png", import.meta.url).href;
 
 const VIPSectionBanner = new URL(
@@ -34,6 +34,26 @@ export default function Home() {
   const [heroBannerIndex, setHeroBannerIndex] = useState(0);
 
   const heroBanners = [banner, banner3, banner4];
+  const heroSlides = [
+    {
+      tag: "VVIP EXPERIENCE",
+      heading: "Elite VVIP Travel & <br /> Premium Comfort",
+      description:
+        "Luxury SUVs with professional chauffeurs for airport transfers, executive events, and high-profile travel across Sri Lanka.",
+    },
+    {
+      tag: "GENERAL TRANSPORT",
+      heading: "Reliable Daily <br /> Transport Solutions",
+      description:
+        "Comfortable and dependable vehicles for staff transport, family travel, and business trips throughout the island.",
+    },
+    {
+      tag: "HEAVY MACHINERY",
+      heading: "Professional Machinery <br /> for Construction",
+      description:
+        "Powerful equipment including JCBs, Excavators, and Tippers for construction projects and site operations.",
+    },
+  ];
 
   useEffect(() => {
     const preloadedImages = heroBanners.map((src) => {
@@ -72,16 +92,28 @@ export default function Home() {
             className="max-w-4xl text-white"
           >
             <h4 className="text-primary font-bold uppercase tracking-widest mb-4">
-              THE ULTIMATE RENTAL EXPERIENCE
+              {heroSlides[heroBannerIndex].tag}
             </h4>
-            <h1 className="text-5xl md:text-7xl lg:text-7xl font-black mb-8 leading-[1.1] tracking-tight">
-              Elite VVIP Travel & <br />
-              <span className="text-primary">Professional Machinery</span>
-            </h1>
+            <h1
+              className="text-5xl md:text-7xl lg:text-7xl font-black mb-8 leading-[1.1] tracking-tight"
+              dangerouslySetInnerHTML={{
+                __html: heroSlides[heroBannerIndex].heading
+                  .replace(
+                    "Professional",
+                    '<span class="text-primary">Professional</span>',
+                  )
+                  .replace(
+                    "Premium",
+                    '<span class="text-primary">Premium</span>',
+                  )
+                  .replace(
+                    "Reliable",
+                    '<span class="text-primary">Reliable</span>',
+                  ),
+              }}
+            />
             <p className="text-xl text-white/75 mb-10 max-w-lg leading-relaxed">
-              From luxury SUVs to construction equipment including JCBs and
-              Excavators. We provide high-end transport and machinery solutions
-              across Sri Lanka.
+              {heroSlides[heroBannerIndex].description}
             </p>
             <div className="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-4">
               <a

@@ -1,13 +1,15 @@
+const JCB = new URL("../img/JCB.jpg", import.meta.url).href;
+const Excavator = new URL("../img/machine1.jpeg", import.meta.url).href;
+const MotorGrader = new URL("../img/MotorGrader.jpg", import.meta.url).href;
+const RoadRoller = new URL("../img/RoadRoller.jpg", import.meta.url).href;
+const TATATipper = new URL("../img/Tipper.jpg", import.meta.url).href;
+
 export interface Car {
   id: string;
   name: string;
   category: "Construction" | "Transport" | "Machinery";
-  year: number;
-  fuel: string;
-  capacity: string;
-  pricePerDay: number;
-  features: string[];
   description: string;
+  image?: string;
 }
 
 export const CARS: Car[] = [
@@ -15,61 +17,41 @@ export const CARS: Car[] = [
     id: "1",
     name: "JCB",
     category: "Machinery",
-    year: 2021,
-    fuel: "Diesel",
-    capacity: "1 Operator",
-    pricePerDay: 150,
-    features: ["4WD", "High Performance", "Versatile"],
     description:
       "Powerful and versatile backhoe loader for all your construction and excavation needs.",
+    image: JCB,
   },
   {
     id: "2",
     name: "Excavator",
     category: "Machinery",
-    year: 2020,
-    fuel: "Diesel",
-    capacity: "1 Operator",
-    pricePerDay: 250,
-    features: ["Heavy Duty", "Deep Digging", "Hydraulic Power"],
     description:
       "High-performance excavator for major earthmoving and trenching projects.",
+    image: Excavator,
   },
 
   {
     id: "4",
     name: "Motor Grader",
     category: "Machinery",
-    year: 2021,
-    fuel: "Diesel",
-    capacity: "1 Operator / 4 Tons & 10 Tons",
-    pricePerDay: 300,
-    features: ["Precision Leveling", "Adjustable Blade", "High Torque"],
     description:
       "Essential for road construction and maintenance, providing precise surface leveling.",
+    image: MotorGrader,
   },
   {
     id: "5",
     name: "Road Roller",
     category: "Machinery",
-    year: 2019,
-    fuel: "Diesel",
-    capacity: "1 Operator",
-    pricePerDay: 180,
-    features: ["Vibratory System", "Smooth Finish", "Heavy Weight"],
     description:
       "Reliable road roller for compacting soil, gravel, concrete, or asphalt in road construction.",
+    image: RoadRoller,
   },
   {
     id: "6",
-    name: "TATA Tipper",
+    name: " Tipper",
     category: "Transport",
-    year: 2020,
-    fuel: "Diesel",
-    capacity: "3.5 Cube",
-    pricePerDay: 180,
-    features: ["Large Capacity", "Heavy Load", "Industrial Grade"],
     description:
       "High-capacity tipper truck for large-scale material transport and industrial use.",
+    image: TATATipper,
   },
 ];

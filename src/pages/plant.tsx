@@ -124,14 +124,15 @@ export default function Plant() {
                   <div className="mt-auto">
                     <p className="text-dark font-bold  mb-2 ">
                       Kadhapola:{" "}
-                      <span className="text-primary">0777778470</span>
+                      <span className="text-primary">077 376 2709</span>
                     </p>
                     <p className="text-dark font-bold mb-2 ">
-                      Vauniya: <span className="text-primary">0777778470</span>
+                      Vauniya:{" "}
+                      <span className="text-primary">077 748 9012</span>
                     </p>
                     <p className="text-dark font-bold mb-2 ">
                       Medawachchiya:{" "}
-                      <span className="text-primary">0777778470</span>
+                      <span className="text-primary">077 748 9012</span>
                     </p>
                   </div>
                 </div>
